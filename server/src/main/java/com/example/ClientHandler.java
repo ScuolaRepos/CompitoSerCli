@@ -34,6 +34,12 @@ public class ClientHandler extends Thread {
             pr.println("Benvenuto alla biglietteria! Inizia con i seguenti comandi: d - visualizza biglietti rimasti, a - compra un biglietto, q - disconnettiti");
             while(chatOn) {
                 String input = br.readLine();
+                
+                if(App.numBiglietti == 0) {
+                    for(int i = 0; i < clients.size(); i++) {
+                        clients.get(i).pr.println("Biglietti esauriti!");
+                    }
+                }
 
                 switch(input) {
                     default: {
@@ -43,13 +49,17 @@ public class ClientHandler extends Thread {
                         pr.println("biglietti disponibili: " + App.numBiglietti);
                     }break;
                     case("a"): {
-                        pr.println("biglietto acquistato");
-                        App.numBiglietti--;
-                        if(App.numBiglietti == 0) {
-                            for(int i = 0; i < clients.size(); i++) {
-                                clients.get(i).pr.println("Biglietti esauriti!");
+                        if(App.numBiglietti > 0) {
+                            pr.println("biglietto acquistato");
+                            App.numBiglietti--;
+                        } else {                          
+                            if(App.numBiglietti == 0) {
+                                for(int i = 0; i < clients.size(); i++) {
+                                    clients.get(i).pr.println("Biglietti esauriti!");
+                                }
                             }
                         }
+
                     }break;
                     case("q"): {
                         pr.println("disconnessione");

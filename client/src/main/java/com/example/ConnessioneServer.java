@@ -40,6 +40,12 @@ public class ConnessioneServer extends Thread{
                     s.close();
                     System.exit(0);
                 }
+                else if(inputStr.equals("Biglietti esauriti!")) {
+                    System.out.println("Biglietti esauriti! chiudo la connessione alla biglietteria");
+                    chatOn = false;
+                    s.close();
+                    System.exit(0);
+                }
                 System.out.println("S:" + inputStr);
             } catch (IOException e) {
                 System.out.println(e.getMessage());
